@@ -33,18 +33,20 @@ window.findNRooksSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
+  var solution = {};
   var solutionCount = 0;
   var board = new Board ({n: n});
 
   var searchBoard = function (currentBoard, placedPeices, n, x, y) {
     // debugger;
-    
     currentBoard.togglePiece(x, y);
     placedPeices.push(JSON.stringify([x, y]));
 
     if (n === 1 && !currentBoard.hasAnyRooksConflicts()) {
-      solutionCount++;
-      console.table(currentBoard.rows());
+      var string = JSON.stringify(currentBoard.rows());
+      solution[string] = true;
+      //console.table(currentBoard.rows());
+      //solutionCount++;
       return;
     }
 
@@ -60,14 +62,18 @@ window.countNRooksSolutions = function(n) {
       }
     }
   };
-  for ( var i = 0; i < n; i++) {
-    //for ( var j = 0; j < n; j++) {
-    searchBoard(board, [], n, i, 0);
-    board.togglePiece(i, 0);
-    //}
+  //for ( var i = 0; i < n; i++) {
+  for ( var j = 0; j < n; j++) {
+    searchBoard(board, [], n, 0, j);
+    board.togglePiece(0, j);
   }
+  for (var key in solution) {
+    solutionCount++;
+  }
+  //}
   //an option is to save a solution as a stringified key.
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
+  
   return solutionCount;
 };
 
@@ -81,8 +87,47 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solution = undefined; //fixme
+  var solution = {};
+  var solutionCount = 0;
+  var board = new Board ({n: n});
 
+  var searchBoard = function (currentBoard, placedPeices, n, x, y) {
+    // debugger;
+    currentBoard.togglePiece(x, y);
+    placedPeices.push(JSON.stringify([x, y]));
+
+    if (n === 1 && !currentBoard.hasAnyQueensConflicts()) {
+      var string = JSON.stringify(currentBoard.rows());
+      solution[string] = true;
+      //console.table(currentBoard.rows());
+      //solutionCount++;
+      return;
+    }
+
+    if (currentBoard.hasAnyQueensConflicts() === false) {
+      for (var i = 0; i < currentBoard.attributes.n; i++) {
+        for (var j = 0; j < currentBoard.attributes.n; j++) {
+          if (placedPeices.indexOf(JSON.stringify([i, j])) < 0) {
+            searchBoard(currentBoard, placedPeices, n - 1, i, j);
+            currentBoard.togglePiece(i, j);
+            placedPeices.pop();
+          }
+        }
+      }
+    }
+  };
+  //for ( var i = 0; i < n; i++) {
+  for ( var j = 0; j < n; j++) {
+    searchBoard(board, [], n, 0, j);
+    board.togglePiece(0, j);
+  }
+  for (var key in solution) {
+    console.log('working...');
+    solutionCount++;
+  }
+  //}
+  //an option is to save a solution as a stringified key.
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
+  
   return solutionCount;
 };
