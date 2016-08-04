@@ -1,4 +1,4 @@
-describe('solvers', function() {
+  describe('solvers', function() {
   window.displayBoard = function() {};
 
   describe('findNRooksSolution()', function() {
@@ -79,4 +79,4 @@ describe('solvers', function() {
 
   });
 
-});
+  });
