@@ -17,3 +17,15 @@
   // };
 
   // searchBoard(n, 0, 0);
+
+   // for (var i = 0; i < currentBoard.attributes.n; i++) {
+    //   for (var j = 0; j < currentBoard.attributes.n; j++) {
+    //     if (placedPeices.indexOf([i, j]) < 0) {
+    //       placedPeices.push([i, j]);
+    //       currentBoard.togglePiece(i, j);
+    //     }
+    //     if (currentBoard.hasAnyRooksConflicts() === false) {
+    //       searchBoard(currentBoard, placedPeices, n - 1);
+    //     }
+    //   }
+    // }

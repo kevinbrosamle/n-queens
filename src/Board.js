@@ -189,7 +189,7 @@
           diag.push(this.get(index - n + 1 + i)[n - i - 1]);
         }
       }
-      console.log(diag);
+      // console.log(diag);
       var count = 0;
       for (var i = 0; i < diag.length; i++) {
         if (diag[i] === 1) {
